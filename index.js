@@ -5,22 +5,8 @@ const { calcular } = require('./calculo');
 const app = express();
 const port = 3000;
 
-// Configuração do CORS para permitir apenas o domínio específico
-const allowedOrigins = ['https://erestituicaoconsulta.netlify.app', 'http://localhost:3000'];
-
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    optionsSuccessStatus: 200
-};
-
-// Middleware para permitir requisições apenas da origem permitida
-app.use(cors(corsOptions));
+// Middleware para permitir todas as origens
+app.use(cors());
 app.use(express.json());
 
 // Mock de dados em memória (poderia ser substituído por um banco de dados real)
