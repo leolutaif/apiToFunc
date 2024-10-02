@@ -7,7 +7,7 @@ const port = 3000;
 
 // Configuração do CORS para permitir apenas o domínio específico
 const corsOptions = {
-    origin: 'https://erestituicaoconsulta.netlify.app',
+    origin: 'https://erestituicaoconsulta.netlify.app/page',
     optionsSuccessStatus: 200 // Para suportar alguns navegadores antigos no preflight
 };
 
