@@ -1,0 +1,24 @@
+{
+    "2024": [
+      { "faixa": { "inicio": 0, "fim": 2259.20 }, "aliquota": 0, "deducao": 0 },
+      { "faixa": { "inicio": 2259.21, "fim": 2826.65 }, "aliquota": 7.5, "deducao": 158.40 },
+      { "faixa": { "inicio": 2826.66, "fim": 3751.05 }, "aliquota": 15.0, "deducao": 370.40 },
+      { "faixa": { "inicio": 3751.06, "fim": 4664.68 }, "aliquota": 22.5, "deducao": 651.73 },
+      { "faixa": { "inicio": 4664.69, "fim": 99999999999999 }, "aliquota": 27.5, "deducao": 884.96 }
+    ],
+    "2023": [
+      { "faixa": { "inicio": 0, "fim": 2112.20 }, "aliquota": 0, "deducao": 0 },
+      { "faixa": { "inicio": 2112.01, "fim": 2826.65 }, "aliquota": 7.5, "deducao": 158.40 },
+      { "faixa": { "inicio": 2826.66, "fim": 3751.05 }, "aliquota": 15.0, "deducao": 370.40 },
+      { "faixa": { "inicio": 3751.06, "fim": 4664.68 }, "aliquota": 22.5, "deducao": 651.73 },
+      { "faixa": { "inicio": 4664.69, "fim": 99999999999999 }, "aliquota": 27.5, "deducao": 884.96 }
+    ],
+    "2016-2022": [
+      { "faixa": { "inicio": 0, "fim": 2112.20 }, "aliquota": 0, "deducao": 0 },
+      { "faixa": { "inicio": 2112.01, "fim": 2826.65 }, "aliquota": 7.5, "deducao": 158.40 },
+      { "faixa": { "inicio": 2826.66, "fim": 3751.05 }, "aliquota": 15.0, "deducao": 370.40 },
+      { "faixa": { "inicio": 3751.06, "fim": 4664.68 }, "aliquota": 22.5, "deducao": 651.73 },
+      { "faixa": { "inicio": 4664.69, "fim": 99999999999999 }, "aliquota": 27.5, "deducao": 884.96 }
+    ]
+  }
+  
