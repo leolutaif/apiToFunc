@@ -6,14 +6,18 @@ const app = express();
 const port = 3000;
 
 // Configuração do CORS para permitir apenas o front-end específico
-const corsOptions = {
-  origin: 'https://erestituicaoconsulta.netlify.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
+app.use(bodyParser.json());
 
-app.use(cors(corsOptions));
-app.use(express.json());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://erestituicaoconsulta.netlify.app',
+    'https://erestituicaoconsulta.netlify.app/page'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
 
 // Rotas e lógica do backend aqui
 
