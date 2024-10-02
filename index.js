@@ -6,9 +6,17 @@ const app = express();
 const port = 3000;
 
 // Configuração do CORS para permitir apenas o domínio específico
+const allowedOrigins = ['https://erestituicaoconsulta.netlify.app', 'http://localhost:3000'];
+
 const corsOptions = {
-    origin: 'https://erestituicaoconsulta.netlify.app/page',
-    optionsSuccessStatus: 200 // Para suportar alguns navegadores antigos no preflight
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    optionsSuccessStatus: 200
 };
 
 // Middleware para permitir requisições apenas da origem permitida
