@@ -5,9 +5,21 @@ const { calcular } = require('./calculo');
 const app = express();
 const port = 3000;
 
-// Middleware para permitir todas as origens
-app.use(cors());
+// Configuração do CORS para permitir apenas o front-end específico
+const corsOptions = {
+  origin: 'https://erestituicaoconsulta.netlify.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
+
+// Rotas e lógica do backend aqui
+
+app.listen(port, () => {
+  console.log(`API rodando na porta ${port}`);
+});
 
 // Mock de dados em memória (poderia ser substituído por um banco de dados real)
 let dados = [];
