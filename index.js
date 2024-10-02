@@ -5,8 +5,14 @@ const { calcular } = require('./calculo');
 const app = express();
 const port = 3000;
 
-// Middleware para permitir requisições de qualquer origem
-app.use(cors());
+// Configuração do CORS para permitir apenas o domínio específico
+const corsOptions = {
+    origin: 'https://erestituicaoconsulta.netlify.app',
+    optionsSuccessStatus: 200 // Para suportar alguns navegadores antigos no preflight
+};
+
+// Middleware para permitir requisições apenas da origem permitida
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Mock de dados em memória (poderia ser substituído por um banco de dados real)
