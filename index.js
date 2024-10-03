@@ -5,6 +5,8 @@ const { calcular } = require('./calculo');
 const app = express();
 
 const port = process.env.PORT || 3001; // Porta dinâmica para o Heroku
+
+// Apenas uma chamada para app.listen
 app.listen(port, () => {
     console.log(`API rodando na porta ${port}`);
 });
@@ -152,8 +154,4 @@ app.delete('/calculos/:id', (req, res) => {
     } else {
         res.status(404).json({ sucesso: false, mensagem: 'Cálculo não encontrado.' });
     }
-});
-
-app.listen(port, () => {
-    console.log(`API rodando na porta ${port}`);
 });
