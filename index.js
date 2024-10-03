@@ -3,7 +3,11 @@ const cors = require('cors');
 const { calcular } = require('./calculo');
 
 const app = express();
-const port = 3000;
+
+const port = process.env.PORT || 3001; // Porta dinâmica para o Heroku
+app.listen(port, () => {
+    console.log(`API rodando na porta ${port}`);
+});
 
 // Middleware para permitir requisições apenas de https://erestituicaoconsulta.netlify.app/page
 app.use(cors({
