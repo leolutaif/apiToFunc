@@ -7,7 +7,7 @@ const port = 3000;
 
 // Middleware para permitir requisições apenas de https://erestituicaoconsulta.netlify.app/page
 app.use(cors({
-    origin: ['https://erestituicaoconsulta.netlify.app', 'http://localhost:3001']
+    origin: '*'
 }));
 app.use(express.json());
 
