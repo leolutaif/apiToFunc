@@ -2,16 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 
-function carregarIndices() {
-    const dataPath = path.join(__dirname, 'indice.json');
-    try {
-        const jsonData = fs.readFileSync(dataPath);
-        return JSON.parse(jsonData);
-    } catch (error) {
-        console.error('Erro ao carregar o arquivo JSON:', error.message);
-        throw new Error('Falha ao carregar os índices.');
-    }
-}
 
 function carregarTabela() {
     const dataPath = path.join(__dirname, 'tabelaIRRF.json');
@@ -24,23 +14,7 @@ function carregarTabela() {
     }
 }
 
-function encontrarIndicePorData(dataConsultada, indices) {
-
-    if (!dataConsultada) {
-        return 0;
-    }
-
-    const indiceEncontrado = indices.find(indice => indice.data === dataConsultada);
-
-    return indiceEncontrado ? indiceEncontrado.indice : null;
-}
-
-function formatarDataParaConsulta(data) {
-    const partes = data.split('/');
-    return `${partes[1]}/${partes[2]}`;
-}
-
-async function calcular({
+async function calcularyear({
     BrutoHomologado,
     TributavelHomologado,
     NumeroDeMeses,
@@ -106,41 +80,42 @@ async function calcular({
     DataHonorarios10
 }) {
 
-    const indices = carregarIndices();
+    const AnoHonorario1 = parseFloat(DataHonorarios1) + 1
+    const AnoHonorario2 = parseFloat(DataHonorarios2) + 1
+    const AnoHonorario3 = parseFloat(DataHonorarios3) + 1
+    const AnoHonorario4 = parseFloat(DataHonorarios4) + 1
+    const AnoHonorario5 = parseFloat(DataHonorarios5) + 1
+    const AnoHonorario6 = parseFloat(DataHonorarios6) + 1
+    const AnoHonorario7 = parseFloat(DataHonorarios7) + 1
+    const AnoHonorario8 = parseFloat(DataHonorarios8) + 1
+    const AnoHonorario9 = parseFloat(DataHonorarios9) + 1
+    const AnoHonorario10 = parseFloat(DataHonorarios10) + 1
 
     const tabelaIRRF = carregarTabela();
 
-    const calcularIndiceSeValido = (valor, data) => {
-        if (valor && data) {
-            const dataFormatada = formatarDataParaConsulta(data);
-            return encontrarIndicePorData(dataFormatada, indices);
-        }
-        return 1;
-    };
-
-    const Indice1 = calcularIndiceSeValido(ValorAlvara1, DataAlvara1);
-    const Indice2 = calcularIndiceSeValido(ValorAlvara2, DataAlvara2);
-    const Indice3 = calcularIndiceSeValido(ValorAlvara3, DataAlvara3);
-    const Indice4 = calcularIndiceSeValido(ValorAlvara4, DataAlvara4);
-    const Indice5 = calcularIndiceSeValido(ValorAlvara5, DataAlvara5);
-    const Indice6 = calcularIndiceSeValido(ValorAlvara6, DataAlvara6);
-    const Indice7 = calcularIndiceSeValido(ValorAlvara7, DataAlvara7);
-    const Indice8 = calcularIndiceSeValido(ValorAlvara8, DataAlvara8);
-    const Indice9 = calcularIndiceSeValido(ValorAlvara9, DataAlvara9);
-    const Indice10 = calcularIndiceSeValido(ValorAlvara10, DataAlvara10);
+    const Indice1 = 1;
+    const Indice2 = 1;
+    const Indice3 = 1;
+    const Indice4 = 1;
+    const Indice5 = 1;
+    const Indice6 = 1;
+    const Indice7 = 1;
+    const Indice8 = 1;
+    const Indice9 = 1;
+    const Indice10 = 1;
 
     let resultado;
 
-        AlvaraCorrigido1 = (ValorAlvara1 * Indice1);
-        AlvaraCorrigido2 = (ValorAlvara2 * Indice2);
-        AlvaraCorrigido3 = (ValorAlvara3 * Indice3);
-        AlvaraCorrigido4 = (ValorAlvara4 * Indice4);
-        AlvaraCorrigido5 = (ValorAlvara5 * Indice5);
-        AlvaraCorrigido6 = (ValorAlvara6 * Indice6);
-        AlvaraCorrigido7 = (ValorAlvara7 * Indice7);
-        AlvaraCorrigido8 = (ValorAlvara8 * Indice8);
-        AlvaraCorrigido9 = (ValorAlvara9 * Indice9);
-        AlvaraCorrigido10 = (ValorAlvara10 * Indice10);
+    AlvaraCorrigido1 = (ValorAlvara1);
+    AlvaraCorrigido2 = (ValorAlvara2);
+    AlvaraCorrigido3 = (ValorAlvara3);
+    AlvaraCorrigido4 = (ValorAlvara4);
+    AlvaraCorrigido5 = (ValorAlvara5);
+    AlvaraCorrigido6 = (ValorAlvara6);
+    AlvaraCorrigido7 = (ValorAlvara7);
+    AlvaraCorrigido8 = (ValorAlvara8);
+    AlvaraCorrigido9 = (ValorAlvara9);
+    AlvaraCorrigido10 = (ValorAlvara10);
 
 
     SomaDarf =
@@ -200,16 +175,16 @@ async function calcular({
     RendTribAlvara9 = (parseFloat(ValorAlvara9) + parseFloat(DarfCorrigido9)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
     RendTribAlvara10 = (parseFloat(ValorAlvara10) + parseFloat(DarfCorrigido10)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
 
-    RendTribHonorarios1 = parseFloat(ValorHonorarios1) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
-    RendTribHonorarios2 = parseFloat(ValorHonorarios2) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
-    RendTribHonorarios3 = parseFloat(ValorHonorarios3) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
-    RendTribHonorarios4 = parseFloat(ValorHonorarios4) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
-    RendTribHonorarios5 = parseFloat(ValorHonorarios5) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
-    RendTribHonorarios6 = parseFloat(ValorHonorarios6) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
-    RendTribHonorarios7 = parseFloat(ValorHonorarios7) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
-    RendTribHonorarios8 = parseFloat(ValorHonorarios8) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
-    RendTribHonorarios9 = parseFloat(ValorHonorarios9) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
-    RendTribHonorarios10 = parseFloat(ValorHonorarios10) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
+    RendTribHonorarios1 = (parseFloat(ValorHonorarios1)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
+    RendTribHonorarios2 = (parseFloat(ValorHonorarios2)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
+    RendTribHonorarios3 = (parseFloat(ValorHonorarios3)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
+    RendTribHonorarios4 = (parseFloat(ValorHonorarios4)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
+    RendTribHonorarios5 = (parseFloat(ValorHonorarios5)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
+    RendTribHonorarios6 = (parseFloat(ValorHonorarios6)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
+    RendTribHonorarios7 = (parseFloat(ValorHonorarios7)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
+    RendTribHonorarios8 = (parseFloat(ValorHonorarios8)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
+    RendTribHonorarios9 = (parseFloat(ValorHonorarios9)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
+    RendTribHonorarios10 = (parseFloat(ValorHonorarios10)) * (parseFloat(TributavelHomologado) / parseFloat(BrutoHomologado))
 
     RendIsentoAlvara1 = (ValorAlvara1 + DarfCorrigido1) - RendTribAlvara1
     RendIsentoAlvara2 = (ValorAlvara2 + DarfCorrigido2) - RendTribAlvara2
@@ -236,16 +211,16 @@ async function calcular({
     };
 
     let dataHonorarios = {
-        DataHonorarios1,
-        DataHonorarios2,
-        DataHonorarios3,
-        DataHonorarios4,
-        DataHonorarios5,
-        DataHonorarios6,
-        DataHonorarios7,
-        DataHonorarios8,
-        DataHonorarios9,
-        DataHonorarios10
+        AnoHonorario1,
+        AnoHonorario2,
+        AnoHonorario3,
+        AnoHonorario4,
+        AnoHonorario5,
+        AnoHonorario6,
+        AnoHonorario7,
+        AnoHonorario8,
+        AnoHonorario9,
+        AnoHonorario10
     };
 
     let rendTribAlvaras = {
@@ -456,11 +431,22 @@ async function calcular({
         return null;
     };
     
-    let IRPF1 = calcularIRPF(AnoExercicio1, RT1, SumRazaoMes1, IRRF1);
-    let IRPF2 = calcularIRPF(AnoExercicio2, RT2, SumRazaoMes2, IRRF2);
-    let IRPF3 = calcularIRPF(AnoExercicio3, RT3, SumRazaoMes3, IRRF3);
-    let IRPF4 = calcularIRPF(AnoExercicio4, RT4, SumRazaoMes4, IRRF4);
-    let IRPF5 = calcularIRPF(AnoExercicio5, RT5, SumRazaoMes5, IRRF5);
+    const calcularIRPFComLimite = (preIRPF, razaoByAno, irrf, limite = 2259) => {
+        return (preIRPF / razaoByAno) <= limite ? irrf : preIRPF;
+    };
+    
+    let PREIRPF1 = calcularIRPF(AnoExercicio1, RT1, SumRazaoMes1, IRRF1);
+    let PREIRPF2 = calcularIRPF(AnoExercicio2, RT2, SumRazaoMes2, IRRF2);
+    let PREIRPF3 = calcularIRPF(AnoExercicio3, RT3, SumRazaoMes3, IRRF3);
+    let PREIRPF4 = calcularIRPF(AnoExercicio4, RT4, SumRazaoMes4, IRRF4);
+    let PREIRPF5 = calcularIRPF(AnoExercicio5, RT5, SumRazaoMes5, IRRF5);
+    
+    let IRPF1 = calcularIRPFComLimite(PREIRPF1, SumRazaoMes1, IRRF1);
+    let IRPF2 = calcularIRPFComLimite(PREIRPF2, SumRazaoMes2, IRRF2);
+    let IRPF3 = calcularIRPFComLimite(PREIRPF3, SumRazaoMes3, IRRF3);
+    let IRPF4 = calcularIRPFComLimite(PREIRPF4, SumRazaoMes4, IRRF4);
+    let IRPF5 = calcularIRPFComLimite(PREIRPF5, SumRazaoMes5, IRRF5);
+    
 
     const fetchSelicData = async (AnoExercicio1, AnoExercicio2, AnoExercicio3, AnoExercicio4, AnoExercicio5) => {
         try {
@@ -499,15 +485,15 @@ async function calcular({
 
     try {
         const selicData = await fetchSelicData(AnoExercicio1, AnoExercicio2, AnoExercicio3, AnoExercicio4, AnoExercicio5);
-        
+
         ValorRestituir1 = IRPF1 + (IRPF1 * (selicData.TaxaSelic1 / 100))
         ValorRestituir2 = IRPF2 + (IRPF2 * (selicData.TaxaSelic2 / 100))
         ValorRestituir3 = IRPF3 + (IRPF3 * (selicData.TaxaSelic3 / 100))
         ValorRestituir4 = IRPF4 + (IRPF4 * (selicData.TaxaSelic4 / 100))
         ValorRestituir5 = IRPF5 + (IRPF5 * (selicData.TaxaSelic5 / 100))
-        
+
         resultado = ValorRestituir1 + ValorRestituir2 + ValorRestituir3 + ValorRestituir4 + ValorRestituir5;
-    
+
     } catch (error) {
         console.error('Erro ao calcular a Taxa Selic', error);
     }
@@ -515,4 +501,4 @@ async function calcular({
     return resultado;
 }
 
-module.exports = { calcular };
+module.exports = { calcularyear };
